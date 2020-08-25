@@ -79,7 +79,7 @@ export default ({ children, location }) => {
         <Content
 
           style={{
-            padding: '10px 50px',
+            padding: '10px 150px',
 
             //  backgroundImage
           }}>

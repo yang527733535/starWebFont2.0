@@ -40,7 +40,9 @@ const Index = () => {
                 src={item.avatar === "" ? "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" : item.avatar}
               />}
             >
-              <Meta title={item.title} description={item.info} />
+              <Meta 
+              
+              title={item.title} description={item.info} />
             </Card>
           )
         })

@@ -24,8 +24,14 @@ export async function videoList () {
 }
 
 export async function reqVideoById (id) {
-  return request(`/api/auth/getvideobyid/id=${id}`);
+  return request(`/api/auth/getvideobyid/${id}`);
 }
+
+
+export async function getTagsApi () {
+  return request(`/api/auth/tags`);
+}
+
 
 
 

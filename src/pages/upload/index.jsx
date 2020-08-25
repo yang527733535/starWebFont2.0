@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
+import { getTagsApi } from '@/services/video'
 import axios from 'axios'
 import Qs from 'qs'
-import { Upload, message, Form, Input, Button, Modal } from 'antd';
+import { Upload, message, Form, Input, Button, Modal, Select } from 'antd';
 import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
-
+const { Option } = Select;
 const Index = () => {
   const [key, setkey] = useState("");
   const [key2, setkey2] = useState("");
@@ -12,13 +12,34 @@ const Index = () => {
   const [loading, setloading] = useState(false);
   const [imagetoken, setimagetoken] = useState("");
   const [showFormModal, setshowFormModal] = useState(false);
+  const [taglist, settaglist] = useState([]);
   const layout = {
     labelCol: { span: 5 },
     wrapperCol: { span: 17 },
   };
+
+  useEffect(() => {
+    async function getTags() {
+      const data = await getTagsApi()
+
+      settaglist(data.data)
+    }
+    getTags()
+  }, [])
+
   const onFinish = values => {
     delete values.avatar
-    const myparam = { ...values, key, key2 }
+    const myparam = { ...values, key, key2, tid: values.tid }
+
+    // console.log(values.tid)
+    let tagstring = "?"
+    values.tid.forEach(element => {
+
+      let mystring = `tag=${element}&`
+      tagstring = tagstring + mystring
+    });
+    console.log(tagstring)
+
     const val = localStorage.getItem('token')
     axios({
       headers: {
@@ -26,8 +47,8 @@ const Index = () => {
         'Authorization': `Bearer ${val}`
       },
       method: 'post',
-      url: 'http://192.168.10.69:8080/api/auth/createVideo',
-      // url: 'http://121.196.194.151:8080/api/auth/createVideo',
+      url: `http://192.168.10.69:8080/api/auth/createVideo${tagstring}`,
+      // url: `http://121.196.194.151:8080/api/auth/createVideo${tagstring}`,
       data: Qs.stringify(myparam)
     }).then((res) => {
       console.log('res: ', res);
@@ -102,8 +123,8 @@ const Index = () => {
       },
       method: 'post',
       //     target: 'http://192.168.10.69:8080/',
-      url: 'http://192.168.10.69:8080/api/auth/uploadtoken',
-      // url: 'http://121.196.194.151:8080/api/auth/uploadtoken',
+      // url: 'http://192.168.10.69:8080/api/auth/uploadtoken',
+      url: 'http://121.196.194.151:8080/api/auth/uploadtoken',
       data: Qs.stringify(myfilename)
     }).then((res) => {
       console.log(res)
@@ -165,8 +186,8 @@ const Index = () => {
         'Authorization': `Bearer ${val}`
       },
       method: 'post',
-      url: 'http://192.168.10.69:8080/api/auth/uploadvideotoken',
-      // url: 'http://121.196.194.151:8080/api/auth/uploadvideotoken',
+      // url: 'http://192.168.10.69:8080/api/auth/uploadvideotoken',
+      url: 'http://121.196.194.151:8080/api/auth/uploadvideotoken',
       data: Qs.stringify(myfilename)
     }).then((res) => {
       console.log(res)
@@ -228,7 +249,18 @@ const Index = () => {
         <Form.Item name='info' label="info" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-        <Form.Item name='url' label="Video" rules={[{ required: true }]}>
+        <Form.Item name='tid' label="tid" rules={[{ required: true }]}>
+          <Select mode="multiple" placeholder="Please select favourite colors">
+            {taglist.map((item) => {
+              return <Option
+                key={item.id}
+                value={item.id}>
+                {item.name}</Option>
+            })}
+
+          </Select>
+        </Form.Item>
+        <Form.Item name='url' label="Video" rules={[{ required: false }]}>
           <Upload
             headers={{
               'Content-Type': 'audio/mp4',
