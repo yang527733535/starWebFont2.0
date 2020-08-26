@@ -36,3 +36,10 @@ export const getPageQuery = () => {
 
   return {};
 };
+
+
+
+
+export const formatDate = (nS) => {
+  return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+}

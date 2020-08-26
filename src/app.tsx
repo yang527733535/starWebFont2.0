@@ -62,6 +62,7 @@ const codeMessage = {
   406: '请求的格式不可得。',
   410: '请求的资源被永久删除，且不会再得到的。',
   422: '当创建一个对象时，发生一个验证错误。',
+  423: '手机号码存在,修改失败',
   500: '服务器发生错误，请检查服务器。',
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
@@ -72,14 +73,16 @@ const codeMessage = {
  * 异常处理程序
  */
 const errorHandler = (error: ResponseError) => {
+
   const { response } = error;
-  console.log(response)
+
   if (response && response.status) {
+    console.log(response)
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
 
     notification.error({
-      message: `请求错误 ${status}: ${url}`,
+      message: `请求错误 ${status}:`,
       description: errorText,
     });
   }

@@ -32,6 +32,17 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
+      path: '/back',
+      layout: true,
+      routes: [
+
+        {
+          path: '/back/account',
+          component: './admin/account.jsx',
+        },
+      ]
+    },
+    {
       path: '/test',
       layout: false,
       component: './mypage',
@@ -54,7 +65,6 @@ export default defineConfig({
           path: '/test/videopage',
           component: './videopage',
         },
-
       ]
     },
     {
@@ -68,39 +78,27 @@ export default defineConfig({
         },
       ],
     },
-    {
-      path: '/welcome',
-      name: 'welcome',
-      // layout: false,
-      icon: 'smile',
-      // layout: false,
-      component: './Welcome',
-    },
+
     {
       path: '/admin',
-      name: 'admin',
+      name: '用户管理',
       // layout: false,
       icon: 'crown',
-      access: 'canAdmin',
-      component: './Admin',
+      // access: 'canAdmin',
+      // component: './Admin',
       routes: [
         {
-          path: '/admin/sub-page',
-          name: 'sub-page',
-          icon: 'smile',
-          component: './Welcome',
+          name: '账号管理',
+          icon: 'table',
+          path: '/admin/users',
+          component: './admin/account.jsx',
         },
       ],
     },
-    {
-      name: 'list.table-list',
-      icon: 'table',
-      path: '/list',
-      component: './ListTableList',
-    },
+
     {
       path: '/',
-      redirect: '/test',
+      redirect: '/test/content',
     },
     {
       component: './404',
