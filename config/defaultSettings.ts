@@ -1,7 +1,7 @@
 import { Settings as LayoutSettings } from '@ant-design/pro-layout';
 
 export default {
-  navTheme: 'light',
+  navTheme: "dark",
   // 拂晓蓝
   primaryColor: '#FFCCCC',
   layout: 'mix',
@@ -12,7 +12,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'star web',
+  title: "GIGI",
   pwa: false,
   iconfontUrl: '',
 } as LayoutSettings & {

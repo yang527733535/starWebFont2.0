@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Modal, Button } from 'antd'
+import { Card, Table, Modal, Button, Popconfirm, message } from 'antd'
 import styles from './index.less'
-import { reqUserList } from "@/services/user"
+import { changeUserStatus, reqUserList } from "@/services/user"
 import { formatDate } from '@/utils/utils'
 import EditForm from './EditForm.jsx'
 import EditPwdForm from './EditPwdForm.jsx'
@@ -83,10 +83,50 @@ const Index = () => {
               setEidtUserPwdModal(true)
             }}
             style={{ marginLeft: 10 }}>修改密码</a>
+          <Popconfirm
+            title="确定修改用户状态?"
+            onConfirm={() => { changeStatus(item) }}
+            // onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <a
+
+              style={{ marginLeft: 10 }}>修改状态</a>
+          </Popconfirm>
+
         </div>)
     },
 
   ]
+
+  const changeStatus = async (item) => {
+    console.log('Status: ', item.Status);
+    let id = item.id
+    if (item.Status === 0) {
+      const param = {
+        status: 1
+      }
+      const data = await changeUserStatus(param, id)
+      console.log('data: ', data);
+      if (data.code === 1) {
+        message.success('修改成功')
+        GetUserList()
+      }
+    }
+
+    if (item.Status === 1) {
+      const param = {
+        status: 0
+      }
+      const data = await changeUserStatus(param, id)
+      console.log('data: ', data);
+      if (data.code === 1) {
+        message.success('修改成功')
+        GetUserList()
+      }
+    }
+  }
 
   async function GetUserList() {
     const data = await reqUserList()
@@ -107,6 +147,7 @@ const Index = () => {
       onCancel={() => { setEditUserModal(false) }}
       visible={EditUserModal}
       destroyOnClose
+      title="修改用户信息"
     >
       <EditForm
         closeModal={() => {
@@ -121,6 +162,7 @@ const Index = () => {
       onCancel={() => { setAddUserModal(false) }}
       visible={AddUserModal}
       destroyOnClose
+      title="创建用户"
     >
       <AddForm
         closeModal={() => {
@@ -135,6 +177,7 @@ const Index = () => {
       onCancel={() => { setEidtUserPwdModal(false) }}
       visible={EidtUserPwdModal}
       footer={null}
+      destroyOnClose
     >
       <EditPwdForm
         EditItem={EditItem}

@@ -82,10 +82,7 @@ export default defineConfig({
     {
       path: '/admin',
       name: '用户管理',
-      // layout: false,
       icon: 'crown',
-      // access: 'canAdmin',
-      // component: './Admin',
       routes: [
         {
           name: '账号管理',
@@ -95,7 +92,20 @@ export default defineConfig({
         },
       ],
     },
-
+    {
+      path: '/tag',
+      name: '标签相关',
+      icon: 'crown',
+      routes: [
+        {
+          name: '标签管理',
+          icon: 'table',
+          path: '/tag/list',
+          component: './tag/index.jsx',
+        },
+      ],
+    }
+    ,
     {
       path: '/',
       redirect: '/test/content',

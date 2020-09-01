@@ -27,6 +27,14 @@ export async function reqVideoById (id) {
   return request(`/api/auth/getvideobyid/${id}`);
 }
 
+export async function reqVideoCommentById (id) {
+  return request(`/api/auth/comment/${id}`);
+}
+
+
+
+
+
 
 export async function getTagsApi () {
   return request(`/api/auth/tags`);

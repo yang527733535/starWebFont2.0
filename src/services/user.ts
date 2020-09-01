@@ -23,6 +23,34 @@ export async function reqEditUser(params, id) {
     data: params,
   });
 }
+export async function reqEditTag(params, id) {
+  return request(`/api/auth/tag/${id}`, {
+    method: 'PUT',
+    data: params,
+  });
+}
+
+
+
+
+export async function deleteTagById(id) {
+  return request(`/api/auth/tag/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+
+
+// 修改用户状态
+export async function changeUserStatus(params, id) {
+  return request(`/api/auth/Userstatus/${id}`, {
+    method: 'PUT',
+    data: params,
+  });
+}
+
+
+
 
 export async function EditUserPwd(params, id) {
   return request(`/api/auth/Userpwd/${id}`, {
@@ -39,5 +67,19 @@ export async function register(params) {
   });
 }
 
+export async function addTag(params) {
+  return request(`/api/auth/addtag`, {
+    method: 'post',
+    data: params,
+  });
+}
 
+
+
+
+
+
+export async function reqTagList() {
+  return request('/api/auth/tags');
+}
 

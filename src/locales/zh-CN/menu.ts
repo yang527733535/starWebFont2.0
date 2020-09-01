@@ -50,5 +50,7 @@ export default {
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
   "menu.用户管理": "用户管理",
-  "menu.用户管理.账号管理": "账号管理"
+  "menu.用户管理.账号管理": "账号管理",
+  "menu.标签相关": "标签相关",
+  "menu.标签相关.标签管理": "标签管理",
 };
