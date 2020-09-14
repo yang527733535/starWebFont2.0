@@ -4,7 +4,13 @@ import { Card } from 'antd'
 import { history } from 'umi';
 import { videoList } from '@/services/video'
 const { Meta } = Card;
+
+
+
 const Index = () => {
+  useEffect(() => {
+    document.title = '首页'
+  }, [])
   const [videos, setvideos] = useState([]);
   useEffect(() => {
     async function GetVideo() {
@@ -40,9 +46,9 @@ const Index = () => {
                 src={item.avatar === "" ? "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" : item.avatar}
               />}
             >
-              <Meta 
-              
-              title={item.title} description={item.info} />
+              <Meta
+
+                title={item.title} description={item.info} />
             </Card>
           )
         })

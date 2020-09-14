@@ -18,8 +18,6 @@ const LoginForm = ({ closeModal }) => {
     if (data.code === 200) {
       message.success("登录成功")
       localStorage.setItem("token", data.data.token)
-
-      localStorage.setItem("userinfomation", JSON.stringify(data.data.user))
       closeModal()
     }
   }

@@ -177,7 +177,7 @@ const Index = () => {
 
 
     const myfilename = {
-      filename: file.name
+      filename: file.name,
     }
     console.log(myfilename)
     const val = localStorage.getItem('token')
@@ -267,9 +267,6 @@ const Index = () => {
             }}
             action={imagetoken}
             name="avatar"
-            // listType="picture-card"
-            // className="avatar-uploader"
-            // showUploadList={false}
             showUploadList={true}
             beforeUpload={beforeUpload2}
             customRequest={mycustomRequest2} // 自定义上传的方法

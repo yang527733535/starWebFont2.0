@@ -27,8 +27,18 @@ export async function reqVideoById (id) {
   return request(`/api/auth/getvideobyid/${id}`);
 }
 
-export async function reqVideoCommentById (id) {
-  return request(`/api/auth/comment/${id}`);
+export async function reqUserDataById (id) {
+  return request(`/api/auth/User/${id}`);
+}
+
+
+
+export async function reqVideoCommentById (id, pageData) {
+  return request(`/api/auth/comment/${id}`, {
+    method: 'get',
+    params: pageData,
+  });
+
 }
 
 

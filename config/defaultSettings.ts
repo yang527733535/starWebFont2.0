@@ -12,7 +12,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: "GIGI",
+  title: "dilidili",
   pwa: false,
   iconfontUrl: '',
 } as LayoutSettings & {
