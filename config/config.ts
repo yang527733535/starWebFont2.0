@@ -58,10 +58,9 @@ export default defineConfig({
         },
         {
           path: '/test/userinfo',
-          component: './userinfo',
+          component: './userinfo22',
         },
         {
-
           path: '/test/videopage',
           component: './videopage',
         },

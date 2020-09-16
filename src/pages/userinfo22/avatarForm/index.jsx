@@ -3,7 +3,7 @@ import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons
 import { Upload, message } from 'antd'
 import axios from 'axios'
 import Qs from 'qs'
-const uploadAva = () => {
+const uploadAva = ({ NowUserinfo }) => {
   const [] = useState(false);
   const [imagetoken, setimagetoken] = useState("");
   const [imageUrl, setimageUrl] = useState("");
@@ -81,6 +81,9 @@ const uploadAva = () => {
           onSuccess(response, file);
           setimageUrl(imageUrl)
           setkey(key)
+          message.success("修改头像成功")
+          NowUserinfo()
+
         })
           .catch(onError);
       };
@@ -93,7 +96,7 @@ const uploadAva = () => {
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div  className="ant-upload-text">Upload</div>
+      <div className="ant-upload-text">Upload</div>
     </div>
   );
 

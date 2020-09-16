@@ -16,22 +16,13 @@ const Index = ({ location }) => {
   const [currentpage, setcurrentpage] = useState(1);
   const [cardLoading, setcardLoading] = useState(false);
   useEffect(() => {
-
-
-
-
     const data = reqVideoById(location.query.id)
-
     data.then((res) => {
       console.log(res.data)
       const { url } = res.data.data
       setvideoData(res.data.data)
       setvideoUrl(url)
       console.log(videoUrl)
-
-      // let player = document.querySelector('#player')
-      // player.src = videoUrl
-
     })
   }, [])
 

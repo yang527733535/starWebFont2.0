@@ -49,6 +49,17 @@ export async function changeUserStatus(params, id) {
   });
 }
 
+export async function reqEditUserInfo(params, id) {
+  console.log(params, id)
+
+  return request(`/api/auth/editUserDesc/${id}`, {
+    method: 'PUT',
+    data: params,
+  });
+}
+
+
+
 
 
 
@@ -71,6 +82,7 @@ export async function addTag(params) {
   return request(`/api/auth/addtag`, {
     method: 'post',
     data: params,
+
   });
 }
 
@@ -81,5 +93,30 @@ export async function addTag(params) {
 
 export async function reqTagList() {
   return request('/api/auth/tags');
+}
+
+
+export async function getNowUserinfo() {
+  const token = localStorage.getItem("token");
+  return request(`/api/auth/me`, {
+    method: 'get',
+    headers: {
+      // 'Content-Type': 'multipart/form-data',
+      "Authorization": `Bearer ${token}`
+    },
+    // data: params,
+  });
+}
+
+export async function GetUserVideoListApi(id) {
+  const token = localStorage.getItem("token");
+  return request(`/api/auth/getvideobyuserid/${id}`, {
+    method: 'get',
+    headers: {
+      // 'Content-Type': 'multipart/form-data',
+      "Authorization": `Bearer ${token}`
+    },
+    // data: params,
+  });
 }
 
