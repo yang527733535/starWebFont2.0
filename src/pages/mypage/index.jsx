@@ -68,9 +68,9 @@ export default ({ children, location }) => {
             <Menu.Item
               onClick={() => { changepage(1) }}
               key="1">首页</Menu.Item>
-            <Menu.Item
+            {/* <Menu.Item
               onClick={() => { changepage(2) }}
-              key="2">投稿</Menu.Item>
+              key="2">投稿</Menu.Item> */}
             <Menu.Item
               onClick={() => { changepage(3) }}
               key="3">个人中心</Menu.Item>

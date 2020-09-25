@@ -1,0 +1,68 @@
+.myloginbox {
+  height             : 100vh;
+  width              : 100%;
+  // background-color: plum;
+  display            : flex;
+
+  .leftimg {
+    width           : 400px;
+    background-color: powderblue;
+
+
+    img {
+      width    : 100%;
+      height   : 100%;
+      // height: 1;
+    }
+  }
+
+  .rigthcontent {
+    flex           : 1;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+
+    // background-color: purple;
+    .myLoginContent_R {
+      display          : flex;
+      flex             : 1;
+      // flex-direction: column;
+      align-items      : center;
+      justify-content  : center;
+
+      // width: 100%;
+      .myLoginContent_LoginForm {
+        display       : flex;
+        flex-direction: column;
+
+        height: 300px;
+      }
+    }
+  }
+}
+
+.myForm_Username {
+  width        : 80px;
+  height       : 24px;
+  font-size    : 16px;
+  font-family  : Source Han Sans SC;
+  font-weight  : bold;
+  line-height  : 24px;
+  color        : rgba(51, 51, 51, 1);
+  opacity      : 1;
+  margin-bottom: 12px;
+}
+
+.LoginTitle {
+  width        : 304px;
+  height       : 41px;
+  font-size    : 28px;
+  font-family  : Source Han Sans SC;
+  font-weight  : 800;
+  line-height  : 41px;
+  color        : rgba(51, 51, 51, 1);
+  opacity      : 1;
+  margin-bottom: 0px;
+  margin-top   : -20px;
+  text-align   : center;
+}

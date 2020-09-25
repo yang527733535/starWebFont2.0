@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './index.less';
-import { Card } from 'antd'
+import { Card, Spin } from 'antd'
 import { history } from 'umi';
 import { videoList } from '@/services/video'
 const { Meta } = Card;
@@ -12,11 +12,14 @@ const Index = () => {
     document.title = '首页'
   }, [])
   const [videos, setvideos] = useState([]);
+  const [loading, seloadingt] = useState(false)
   useEffect(() => {
     async function GetVideo() {
+      seloadingt(true)
       const data = await videoList()
       console.log('data: ', data);
       const { videolist } = data.data
+      seloadingt(false)
       setvideos(videolist)
     }
     GetVideo()
@@ -24,6 +27,7 @@ const Index = () => {
   }, [])
   return (
     <div className={styles.mybox}>
+      {  loading && <Spin className={styles.myspin} />}
       {
         videos.map((item) => {
           return (

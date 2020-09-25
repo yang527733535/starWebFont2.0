@@ -5,7 +5,7 @@ import Qs from 'qs'
 import { Upload, message, Form, Input, Button, Modal, Select } from 'antd';
 import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 const { Option } = Select;
-const Index = () => {
+const Index = ({ userInfo }) => {
   const [key, setkey] = useState("");
   const [key2, setkey2] = useState("");
   const [imageUrl, setimageUrl] = useState("");
@@ -28,7 +28,12 @@ const Index = () => {
 
   const onFinish = values => {
     delete values.avatar
-    const myparam = { ...values, key, key2, tid: values.tid }
+    const myparam = {
+      ...values,
+      key, key2,
+      tid: values.tid,
+      uploadUserId: userInfo.id,
+    }
 
     // console.log(values.tid)
     let tagstring = "?"
@@ -225,81 +230,70 @@ const Index = () => {
   }
   return <div>
 
-    <Button
 
-      onClick={() => { setshowFormModal(true) }}
-      type="primary">投稿</Button>
 
-    <Modal
-      footer={null}
-      onCancel={() => { setshowFormModal(false) }}
-      visible={showFormModal}
+    <Form {...layout}
+      name="nest-messages"
+      onFinish={onFinish}
+    // validateMessages={validateMessages}
     >
-      <Form {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-      // validateMessages={validateMessages}
-      >
-        <Form.Item name='title' label="Title" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name='info' label="info" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name='tid' label="tid" rules={[{ required: true }]}>
-          <Select mode="multiple" placeholder="Please select favourite colors">
-            {taglist.map((item) => {
-              return <Option
-                key={item.id}
-                value={item.id}>
-                {item.name}</Option>
-            })}
+      <Form.Item name='title' label="Title" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item name='info' label="info" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item name='tid' label="tid" rules={[{ required: true }]}>
+        <Select mode="multiple" placeholder="Please select favourite colors">
+          {taglist.map((item) => {
+            return <Option
+              key={item.id}
+              value={item.id}>
+              {item.name}</Option>
+          })}
 
-          </Select>
-        </Form.Item>
-        <Form.Item name='url' label="Video" rules={[{ required: false }]}>
-          <Upload
-            headers={{
-              'Content-Type': 'audio/mp4',
-            }}
-            action={imagetoken}
-            name="avatar"
-            showUploadList={true}
-            beforeUpload={beforeUpload2}
-            customRequest={mycustomRequest2} // 自定义上传的方法
-          >
-            <Button>
-              <UploadOutlined /> Click to Upload
+        </Select>
+      </Form.Item>
+      <Form.Item name='url' label="Video" rules={[{ required: false }]}>
+        <Upload
+          headers={{
+            'Content-Type': 'audio/mp4',
+          }}
+          action={imagetoken}
+          name="avatar"
+          showUploadList={true}
+          beforeUpload={beforeUpload2}
+          customRequest={mycustomRequest2} // 自定义上传的方法
+        >
+          <Button>
+            <UploadOutlined /> Click to Upload
        </Button>
-          </Upload>
-        </Form.Item>
-        <Form.Item name='avatar' label="avatar"
-          rules={[{ required: false }]}>
-          <Upload
-            headers={{
-              'Content-Type': 'image/png',
-            }}
-            action={imagetoken}
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            beforeUpload={beforeUpload}
-            customRequest={mycustomRequest} // 自定义上传的方法
-          >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
-        </Form.Item>
+        </Upload>
+      </Form.Item>
+      <Form.Item name='avatar' label="avatar"
+        rules={[{ required: false }]}>
+        <Upload
+          headers={{
+            'Content-Type': 'image/png',
+          }}
+          action={imagetoken}
+          name="avatar"
+          listType="picture-card"
+          className="avatar-uploader"
+          showUploadList={false}
+          beforeUpload={beforeUpload}
+          customRequest={mycustomRequest} // 自定义上传的方法
+        >
+          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        </Upload>
+      </Form.Item>
 
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
+      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
         </Button>
-        </Form.Item>
-      </Form>
-    </Modal>
-
-
+      </Form.Item>
+    </Form>
 
 
   </div>

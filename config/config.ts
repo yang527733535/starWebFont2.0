@@ -64,7 +64,17 @@ export default defineConfig({
           path: '/test/videopage',
           component: './videopage',
         },
+        {
+          path: '/test/login',
+
+          component: './loginpage',
+        }
       ]
+    },
+    {
+      path: '/loginandresgister',
+      layout: false,
+      component: './loginpage'
     },
     {
       path: '/user',

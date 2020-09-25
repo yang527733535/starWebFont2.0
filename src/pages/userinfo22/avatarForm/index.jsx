@@ -3,7 +3,7 @@ import { LoadingOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons
 import { Upload, message } from 'antd'
 import axios from 'axios'
 import Qs from 'qs'
-const uploadAva = ({ NowUserinfo }) => {
+const uploadAva = ({ NowUserinfo, userinfo }) => {
   const [] = useState(false);
   const [imagetoken, setimagetoken] = useState("");
   const [imageUrl, setimageUrl] = useState("");
@@ -38,7 +38,7 @@ const uploadAva = ({ NowUserinfo }) => {
 
     const myfilename = {
       filename: file.name,
-      userId: 2,
+      userId: userinfo.id,
     }
     console.log(myfilename)
     const val = localStorage.getItem('token')
@@ -50,7 +50,7 @@ const uploadAva = ({ NowUserinfo }) => {
       //     target: 'http://192.168.10.69:8080/',
       // url: 'http://localhost:8080/api/auth/uploadtoken',
       // url: 'http://121.196.194.151:8080/api/auth/uploaduseravatartoken',
-      url: 'http://localhost:8080/api/auth/uploaduseravatartoken',
+      url: 'http://121.196.194.151:8080/api/auth/uploaduseravatartoken',
       data: Qs.stringify(myfilename)
     }).then((res) => {
       console.log(res)

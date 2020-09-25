@@ -6,6 +6,7 @@ import UploadAva from './avatarForm'
 import { history } from 'umi'
 import { getNowUserinfo, GetUserVideoListApi } from '@/services/user'
 import EditForm from './EditForm'
+import UploadVideoForm from './uploadform'
 const Index = () => {
   async function NowUserinfo() {
     const userinfodata = await getNowUserinfo()
@@ -15,23 +16,34 @@ const Index = () => {
   useEffect(() => {
     document.title = '个人中心'
     let data = localStorage.getItem("token")
+    if (data === null) {
+      return
+    }
     //这里最稳妥的还是直接通过token来获取用户的信息
     NowUserinfo()
+    GetUserVideoList()
   }, [])
 
+
   useEffect(() => {
-    GetUserVideoList()
+    let token = localStorage.getItem("token")
+    if (token === null) {
+      console.log('我没有登录')
+      history.push('/loginandresgister')
+    }
+
   }, [])
 
   async function GetUserVideoList() {
     setcardloading(true)
-    let res = await GetUserVideoListApi(1)
+    let { id } = userinfo
+    let res = await GetUserVideoListApi(id)
     setcardloading(false)
     let { data } = res
     console.log('data: ', data);
-
     setuserVideoList(data.data)
   }
+  const [uploadModal, setuploadModal] = useState(false);
   const [cardloading, setcardloading] = useState(false);
   const [userVideoList, setuserVideoList] = useState([]);
   const [userinfo, setuserinfo] = useState({});
@@ -58,21 +70,28 @@ const Index = () => {
                   setEditUserInfoModal(true)
                 }} type='primary'>修改信息</Button>
                 <Button onClick={() => { setAvatarModal(true) }} type='primary'>更换头像</Button>
-                <Button>修改密码</Button>
+                <Button type='primary'>修改密码</Button>
+                <Button
+                  onClick={() => {
+                    localStorage.clear()
+                    history.push('/loginandresgister')
+                  }}
+                >退出登录</Button>
               </div>
             </div>
-
           </Card>
         </Col>
         <Col flex={6}>
           <Card
-            // extra={<Button>上传视频</Button>}
+            extra={<Button
+              onClick={() => { setuploadModal(true) }}
+            >上传视频</Button>}
             loading={cardloading}
             hoverable
             title='我的投稿'
             style={{ height: 2600, minWidth: 300 }}>
             {
-              userVideoList.map((item) =>
+              userVideoList?.map((item) =>
                 <div
                   onClick={() => {
                     history.push({
@@ -134,7 +153,10 @@ const Index = () => {
           <div className={styles.imgword}>
             当前头像
           </div>
-          <UploadAva NowUserinfo={NowUserinfo} />
+          <UploadAva
+
+            userinfo={userinfo}
+            NowUserinfo={NowUserinfo} />
           <div className={styles.NowAvatar} >
             <div>
 
@@ -155,10 +177,20 @@ const Index = () => {
           closeModal={() => { setloginModal(false) }}
         ></LoginForm>
       </Modal>
-      <Button
 
-        onClick={() => { setloginModal(true) }}
-      >Login</Button>
+
+      {/* 这个是视频投稿的MODAL */}
+      <Modal
+        visible={uploadModal}
+        footer={null}
+        onCancel={() => { setuploadModal(false) }}
+      >
+
+        <UploadVideoForm
+          userInfo={userinfo}
+        ></UploadVideoForm>
+      </Modal>
+
     </div>
   )
 };
