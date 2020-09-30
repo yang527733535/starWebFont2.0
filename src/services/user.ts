@@ -30,6 +30,15 @@ export async function reqEditTag(params, id) {
   });
 }
 
+export async function reqSendEmail(params: any) {
+  return request(`/api/auth/email`, {
+    method: 'POST',
+    data: params,
+  });
+}
+
+
+
 
 
 
@@ -71,7 +80,17 @@ export async function EditUserPwd(params, id) {
 }
 
 
-export async function register(params) {
+export async function reqRegister(params: any) {
+  return request(`/api/auth/register`, {
+    method: 'POST',
+    data: params,
+  });
+}
+
+
+
+
+export async function register(params: any) {
   return request(`/api/auth/register`, {
     method: 'post',
     data: params,

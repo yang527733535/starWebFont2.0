@@ -5,8 +5,8 @@
   display            : flex;
 
   .leftimg {
-    width           : 400px;
-    background-color: powderblue;
+    width              : 400px;
+    // background-color: powderblue;
 
 
     img {
@@ -15,14 +15,15 @@
       // height: 1;
     }
   }
-
+ 
   .rigthcontent {
     flex           : 1;
     display        : flex;
     align-items    : center;
     justify-content: center;
 
-    // background-color: purple;
+    background-color: white;
+
     .myLoginContent_R {
       display          : flex;
       flex             : 1;
@@ -65,4 +66,19 @@
   margin-bottom: 0px;
   margin-top   : -20px;
   text-align   : center;
+}
+
+.LoginTitle_selectspan {
+  border-bottom: 5px solid pink;
+  cursor       : pointer;
+}
+
+.formItem {
+  display: flex;
+
+  :global {
+    .ant-form-item-control-input-content {
+      display: flex;
+    }
+  }
 }
